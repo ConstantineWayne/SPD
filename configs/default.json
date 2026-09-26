@@ -1,0 +1,115 @@
+{
+    "name": "EReFormer_dense_epoch200_000032",
+    "cuda": true,
+    "gpu": 0,
+    "data_loader": {
+       "train": {
+            "type": "SequenceSynchronizedFramesEventsDataset",
+            "base_folder": "xxx",
+            "depth_folder": "depth/data",
+            "frame_folder": "rgb/frames",
+            "flow_folder": "",
+            "event_folder": "events/voxels",
+            "proba_pause_when_running": 0.0,
+            "proba_pause_when_paused": 0.0,
+            "step_size": 1,
+            "clip_distance": 1000.0,
+            "every_x_rgb_frame": 1,
+            "scale_factor": 1,
+            "reg_factor": 5.70378,
+            "baseline": false,
+            "dataset_idx_flag": false
+        },
+        "validation": {
+            "type": "SequenceSynchronizedFramesEventsDataset",
+            "base_folder": "xxx",
+            "frame_folder": "rgb/frames",
+            "depth_folder": "depth/data",
+            "flow_folder": "",
+            "event_folder": "events/voxels",
+            "proba_pause_when_running": 0.0,
+            "proba_pause_when_paused": 0.0,
+            "step_size": 1,
+            "clip_distance": 1000,
+            "every_x_rgb_frame": 1,
+            "scale_factor": 1,
+            "reg_factor": 5.70378,
+            "baseline": false,
+            "dataset_idx_flag": false
+        },
+        "test": {
+            "type": "SequenceSynchronizedFramesEventsDataset",
+            "base_folder": "xxx",
+            "frame_folder": "rgb/frames",
+            "depth_folder": "depth/data",
+            "flow_folder": "",
+            "event_folder": "events/voxels",
+            "proba_pause_when_running": 0.0,
+            "proba_pause_when_paused": 0.0,
+            "step_size": 1,
+            "clip_distance": 1000.0,
+            "every_x_rgb_frame": 1,
+            "scale_factor": 1,
+            "reg_factor": 5.70378,
+            "baseline": false,
+            "dataset_idx_flag": false
+        },
+        "batch_size": 16,
+        "num_workers": 0,
+        "pin_memory": false,
+        "normalize": true,
+        "shuffle": true
+    },
+    "lr_scheduler_type": "OneCycleLR",
+    "lr_scheduler_freq": 10,
+    "lr_scheduler": {
+        "max_lr": 0.000032,
+        "epochs": 150,
+        "steps_per_epoch": "",
+        "cycle_momentum": true,
+        "base_momentum": 0.85,
+        "max_momentum": 0.95,
+        "last_epoch": -1,
+        "div_factor": 25,
+        "final_div_factor": 100
+    },
+    "optimizer_type": "AdamW",
+    "optimizer": {
+        "lr": 0.000032,
+        "weight_decay": 0.1,
+        "amsgrad": true
+        
+    },
+    "loss": {
+        "type": "scale_invariant_loss",
+        "config": {"weight": 10.0, "n_lambda" : 0.85},
+        "weight": 1
+    },
+    "grad_loss": {
+        "weight": 0.25
+    },
+    
+    "trainer": {
+        "epochs": 150,
+        "sequence_length": 1,
+        "save_dir": "checkpoints/DENSE",
+        "save_freq": 100,
+        "verbosity": 2,
+        "monitor": "val_loss",
+        "monitor_mode": "min",
+        "num_previews": 2,
+        "num_val_previews": 2,
+        "still_previews": true,
+        "grid_loss": true,
+        "loss_composition": ["", ""],
+        "loss_weights": [1, 1]
+    },
+    "arch": "HAFUnet",
+    "use_phased_arch": false,
+    "model": {
+      "img_size_s1": [224, 224],
+      "img_size_s2": [224, 224],
+      "model_scale": "tiny",
+      "preload": true
+    }
+}
